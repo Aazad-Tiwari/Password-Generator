@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="copy.svg" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .bg-grad{
+            background: linear-gradient(231deg, rgba(22, 6, 40, 1)0%, rgba(52, 28, 79, 1) 50%, rgba(88,7,125,1)100% );
+        }
+
+
+        .display::placeholder{
+            position: absolute;
+            top: 50%;
+            left: 1.5rem;
+            font-size: 1.5rem;
+            /* line-height: 30px; */
+            color:hsl(52, 100% , 62%);
+            opacity: .65;
+            transform: translateY(-50%);
+            text-transform: uppercase;
+        }
+
+        .check input{
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #00ebdb;
+            cursor: pointer;
+            position: relative;
+            border-radius: .35rem;
+        }
+
+        .check input:checked {
+            background-color: #00ebdb;
+        }
+
+        .check input:checked::before {
+            content: '✓';
+            position: absolute;
+            color: #1b2428;
+            font-size: 1.05rem;
+            font-weight: 600;
+            left: 15%;
+            bottom: -20%;
+            
+        }
+
+        .slider{
+            height: .75rem;
+        }
+        
+        .slider::-webkit-slider-thumb{
+            z-index: 10;
+            position: relative;
+            appearance: none;
+            height: 2rem;
+            width: 2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            background-color: hsl(52, 100% , 62%);
+            margin-top: -3px;
+            box-shadow: 0px 0px 20px 0px rgba(255, 229, 61, 0.50);
+            transition: all 100ms ease-in;
+        }
+
+        .slider::-webkit-slider-thumb:hover{
+            background-color: hsl(268, 75%, 9%);
+            outline: 2px solid hsl(52, 100% , 62%);
+            box-shadow: 0px 0px 25px 5px rgba(255, 229, 61, 0.80);
+        }
+
+        .slider:focus{
+            outline: 3px solid hsl(52, 100% , 62%);
+        }
+
+    </style>
+    
+</head>
+<body>
+
+    <div class="relative overflow-x-hidden flex justify-center flex-col items-center w-screen h-screen font-League bg-grad">
+
+        <h1 class="text-plWhite opacity-75 leading-[1.2] text-center uppercase tracking-[1px] text-2xl">Password Generator</h1>
+        <div class="relative bg-dkViolet rounded-[1rem] border-b-ltViolet2 border-b-[.35rem] mt-[1rem] mx-auto pt-[.35rem] max-w-[450px] w-[90%]">
+            <input type="text" placeholder="PASSWORD" readonly data-displayPassword class="display bg-transparent py-[1.15rem] px-[1rem] text-vbYellow text-[1.5rem] font-[600] leading-[30px] tracking-[1px]">
+            <button class="absolute top-[50%] right-[1rem] translate-y-[-50%]" data-copy>
+                <span data-copyMsg class="absolute -right-3 bg-vbViolet rounded-xl p-1 text-vbYellow -top-10 hidden">Copied</span>
+                <img src="copy.svg" width="23" height="23" class="mr-2" >
+            </button>
+        </div>
+
+        <div class="flex flex-col gap-4 bg-dkViolet rounded-[1rem] w-[90%] max-w-[450px] p-[2rem] border-b-ltViolet2 border-b-[.35rem] mt-2 mx-auto">
+
+            <div class="flex justify-between items-center">
+                <p class="text-plWhite text-[1.5rem]">Password Length</p>
+                <p class="text-vbYellow text-[1.5rem]" data-Passwordlength></p>
+            </div>
+            
+            <div>
+                <input type="range" min="1" max="20" step="1" data-inputSlider class="appearance-none w-[100%] rounded-2xl bgimg cursor-pointer slider -z-10">
+            </div>
+
+            <div class="flex flex-col justify-center gap-1">
+
+                <div class="flex gap-3 capitalize check">
+                    <input type="checkbox" name="uppercase" id="uppercase" checked>
+                    <label class="text-plWhite font-[1.25rem] tracking-[.75px]" for="uppercase">include uppercase letters</label>
+                </div>
+
+                <div class="flex gap-3 capitalize check">
+                    <input type="checkbox" name="lowercase" id="lowercase">
+                    <label  for="lowercase"  class="text-plWhite font-[1.25rem] tracking-[.75px]">include lowercase letters</label>
+                </div>
+
+                <div class="flex gap-3 capitalize check">
+                    <input type="checkbox" name="numbers" id="numbers">
+                    <label for="numbers" class="text-plWhite font-[1.25rem] tracking-[.75px]">include numbers </label>
+                </div>
+                
+                <div class="flex gap-3 capitalize check">
+                    <input type="checkbox" name="symbols" id="symbols">
+                    <label for="symbols" class="text-plWhite font-[1.25rem] tracking-[.75px]">include symbols</label>
+                </div>
+
+            </div>
+
+            <div class="flex justify-between items-center mt-[.5rem] mb-[1rem]">
+                <p class="text-plWhite text-[1.5rem]">Strength</p>
+                <div class="w-[1.5rem] h-[1.5rem] rounded-full mt-[8px]" data-displayStrength></div>                
+            </div>
+
+            <div>
+                <button class="bg-vbViolet text-center py-[1rem] w-[100%] rounded-xl uppercase tracking-[1px] text-vbYellow font-[600] text-[1.25rem] border-b-vbYellow border-b-[.35rem]" id="generateButton">Generate Password</button>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
