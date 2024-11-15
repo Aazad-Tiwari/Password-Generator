@@ -216,8 +216,9 @@ function shufflePassword(array) {
         array[randomindex2] = temp
     }
 
-    str = ''
+    let str = ''
     array.forEach( (el) => (str+=el) )
+
     return str
 }
 
